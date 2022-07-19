@@ -1,17 +1,10 @@
 let textarea = document.querySelector("#textarea-container");
 
-const suggestionWord = [
-  "Prabin Gautam",
-  "Prabin Gautam",
-  "Gaming",
-  "meet you",
-  "one",
-];
+const suggestionWord = ["Prabin Gautam", "Gaming", "meet you", "one"];
 
 const suggestionActivation = [
   "My name is",
-  "My name is Prabin Gautam. My name is",
-  "My name is Prabin Gautam. I love",
+  "I love",
   "Nice to",
   "Two are better than",
 ];
@@ -41,8 +34,10 @@ function addSuggestions(event, suggestedWord) {
 
 //To get suggestion
 //Use machine learning model to get suggested word. I had hardcorded right now.
-const getSuggestedWord = function (userText) {
-  let index = suggestionActivation.findIndex((value) => value == userText);
+const getSuggestedWord = function (text) {
+  const endText = text.split(".").pop().trim();
+  let index = suggestionActivation.findIndex((value) => value == endText);
+
   return suggestionWord[index];
 };
 
@@ -56,7 +51,7 @@ function showSuggestionWord(suggestedWord) {
   hasPredictContainer = true;
 }
 
-//To reset the suggestions 
+//To reset the suggestions
 const resetSuggestions = function () {
   suggestedWord = "";
   showSuggestions = false;
@@ -75,18 +70,20 @@ document.addEventListener("keydown", (event) => {
 document.addEventListener("keyup", predict);
 
 function predict(event) {
-  const data = event.target.textContent
+  const text = event.target.textContent
     ? event.target.childNodes[0].textContent
     : "";
 
-  showSuggestions = suggestionActivation.some((value) => data == value);
+  const endText = text.split(".").pop().trim();
+
+  showSuggestions = suggestionActivation.some((value) => endText == value);
 
   let predictContainer = document.getElementById("predict");
   hasPredictContainer = Boolean(predictContainer);
 
   if (showSuggestions && !hasPredictContainer) {
     //Implement ML model here
-    suggestedWord = getSuggestedWord(data);
+    suggestedWord = getSuggestedWord(text);
     showSuggestionWord(suggestedWord);
   }
 
