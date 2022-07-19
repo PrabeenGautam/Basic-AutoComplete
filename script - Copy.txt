@@ -4,7 +4,7 @@ let prediction = document.querySelector("#predict");
 const suggestion = {
   name: "Prabin Gautam",
   love: "Gaming",
-  nice: "meet you",
+  nice: "meet you ✪ ω ✪",
 };
 
 const suggestionActivation = [
