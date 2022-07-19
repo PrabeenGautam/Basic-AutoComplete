@@ -19,16 +19,16 @@ function setCursor() {
   const range = document.createRange(); //To create range of text
 
   selection.removeAllRanges(); //Remove any existing range of cursor
-  range.selectNodeContents(textarea); //To apply selection on
+  range.selectNodeContents(textarea); //To apply new range  on
 
-  selection.addRange(range); //To set new range for cursor
+  selection.addRange(range); //Set new range for cursor
   range.collapse(false); //Remove whole text selection
   textarea.focus();
 }
 //To add suggestions to user text
 function addSuggestions(event, suggestedWord) {
   let textContents = event.target.childNodes[0].textContent;
-  event.target.childNodes[0].textContent = `${textContents} ${suggestedWord}`;
+  event.target.childNodes[0].textContent = `${textContents.trim()} ${suggestedWord}`;
   textarea.focus();
 }
 
