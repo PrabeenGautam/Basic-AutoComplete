@@ -1,11 +1,7 @@
 let textarea = document.querySelector("#textarea-container");
 let prediction = document.querySelector("#predict");
 
-const suggestion = {
-  name: "Prabin Gautam",
-  love: "Gaming",
-  nice: "meet you",
-};
+const suggestionWord = ["Prabin Gautam", "Prabin Gautam", "Gaming", "meet you"];
 
 const suggestionActivation = [
   "My name is",
@@ -17,7 +13,6 @@ const suggestionActivation = [
 let tabKeyPressed = false;
 let showSuggestions = false;
 let suggestedWord = "";
-let spaceCount = 0;
 
 document.addEventListener("keydown", (event) => {
   tabKeyPressed = event.key === "Tab";
@@ -41,26 +36,15 @@ function setCursor() {
 }
 
 function addSuggedtedWord(event, suggestedWord) {
-  let textContents = event.target.childNodes[0].textContent.split(" ");
-
-  const lastText = textContents[textContents.length - 1].trim();
-  textContents.pop();
-  textContents = [...textContents, lastText].join(" ");
+  let textContents = event.target.childNodes[0].textContent;
 
   event.target.childNodes[0].textContent = `${textContents} ${suggestedWord}`;
   textarea.focus();
 }
 
-const findSuggestionWord = function (data) {
-  if (data == "My name is" || data == "My name is Prabin Gautam. My name is") {
-    suggestedWord = suggestion["name"];
-  } else if (data == "My name is Prabin Gautam. I love") {
-    suggestedWord = suggestion["love"];
-  } else if (data == "Nice to") {
-    suggestedWord = suggestion["nice"];
-  } else {
-    suggestedWord = "";
-  }
+const findSuggestionWord = function (userText) {
+  let index = suggestionActivation.findIndex((value) => value == userText);
+  return suggestionWord[index];
 };
 
 function predict(event) {
@@ -69,23 +53,13 @@ function predict(event) {
     : "";
 
   showSuggestions = suggestionActivation.some((value) => data == value);
-  findSuggestionWord(data);
+  suggestedWord = findSuggestionWord(data);
 
   const contains = document.body.contains(document.getElementById("predict"));
   const resetSuggestions = function () {
     suggestedWord = "";
     showSuggestions = false;
-    spaceCount = 0;
   };
-
-  if (contains && event.code == "Space") {
-    spaceCount = spaceCount + 1;
-
-    if (spaceCount >= 2) {
-      suggestedWord = "";
-      showSuggestions = false;
-    }
-  }
 
   if (showSuggestions) {
     temp_element = `<span id="predict" class="predict" contenteditable="false">
