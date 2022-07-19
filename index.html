@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Prediction</title>
+    <style>
+      :root {
+        --font-size: 0.75rem;
+      }
+
+      body {
+        background-color: rgb(18, 91, 97);
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+        font-size: var(--font-size);
+      }
+
+      .textarea {
+        width: 70vw;
+        display: flex;
+        align-items: center;
+
+        position: relative;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+
+      #textarea-container {
+        outline: none;
+        resize: none;
+        border-radius: 8px;
+        padding: 20px;
+        background-color: white;
+        width: 100%;
+        height: 12.5rem;
+        line-height: 1.5;
+      }
+
+      .predict-word {
+        color: #757575;
+        user-select: none;
+        -webkit-user-drag: none;
+      }
+
+      .tab {
+        border: 1px solid #757575;
+        padding: 1.5px;
+        border-radius: 4px;
+        font-size: 0.5rem;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="textarea">
+      <div id="textarea-container" contenteditable="true"></div>
+    </div>
+  </body>
+  <script src="./script.js"></script>
+</html>
